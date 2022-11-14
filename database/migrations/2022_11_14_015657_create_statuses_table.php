@@ -14,7 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('statuses', function (Blueprint $table) {
+
+            // ID dari status, nantinya akan dihubungkan dengan tabel pasien 
             $table->id();
+
+            // Deskripsi dari status id, Positive/Recovered/Dead
+            $table->string('desc');
+
+            // Tanggal dibuatnya data 
             $table->timestamps();
         });
     }
