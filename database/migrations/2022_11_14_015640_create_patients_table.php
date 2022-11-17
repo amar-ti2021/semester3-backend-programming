@@ -28,7 +28,7 @@ return new class extends Migration
             $table->text('address');
 
             // Status pasien, foreign key dari table statuses 
-            // 0 = positive, 1 = recovered, 2 = dead
+            // 1 = positive, 2 = recovered, 3 = dead
             $table->foreignId('status_id');
 
             // Tanggal pasien terkonfirmasi Covid 
