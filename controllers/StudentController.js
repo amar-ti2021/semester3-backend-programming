@@ -11,15 +11,20 @@ class StudentController {
     res.json(data);
   }
 
-  // store(req, res) {
-  //   const { nama } = req.body;
-  //   students.push(nama);
-  //   const data = {
-  //     message: `Menambahkan data student : ${nama}`,
-  //     data: students,
-  //   };
-  //   res.json(data);
-  // }
+  async store(req, res) {
+    const requests = {
+      nama: req.body.nama,
+      nim: req.body.nim,
+      email: req.body.email,
+      jurusan: req.body.jurusan,
+    };
+    const student = await Student.save(requests);
+    const data = {
+      message: `Menambahkan data student : ${req.body.nama}`,
+      data: student,
+    };
+    res.json(data);
+  }
 
   // update(req, res) {
   //   const { id } = req.params;
@@ -32,15 +37,15 @@ class StudentController {
   //   res.json(data);
   // }
 
-  // destroy(req, res) {
-  //   const { id } = req.params;
-  //   students.splice(id, 1);
-  //   const data = {
-  //     message: `Menghapus student id ${id}`,
-  //     data: students,
-  //   };
-  //   res.json(data);
-  // }
+  async destroy(req, res) {
+    const { id } = req.params;
+    const result = await Student.delete(id);
+    const data = {
+      message: `Menghapus student id ${id}`,
+      data: result,
+    };
+    res.json(data);
+  }
 }
 
 const object = new StudentController();
