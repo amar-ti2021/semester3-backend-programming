@@ -30,18 +30,34 @@ class Student {
         if (error) {
           reject(error);
         } else {
-          resolve(results);
+          const [student] = results;
+          resolve(student);
         }
       });
     });
   }
+
+  static async update(id, data) {
+    await new Promise((resolve, reject) => {
+      const query = `UPDATE students SET ? WHERE id = ?`;
+      db.query(query, [data, id], (error, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(results);
+        }
+      });
+    });
+
+    const student = await this.find(id);
+    return student;
+  }
   static async delete(id) {
     try {
-      const data = await this.find(id);
       return new Promise((resolve, reject) => {
         const query = `DELETE FROM students WHERE id=${id}`;
         db.query(query, (error, results) => {
-          resolve(data);
+          resolve(results);
         });
       });
     } catch (error) {
